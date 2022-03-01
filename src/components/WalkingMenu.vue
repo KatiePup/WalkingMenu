@@ -7,22 +7,18 @@
     @keyup.right="stopRight"
     @keydown.enter="play"
   >
-    <svg width="600" height="800">
+    <svg width="1800" height="800">
       <g>
         <g class="house" :transform="houses.transform">
           <House />
         </g>
         <text v-show="enter" x="100" y="500">Press Enter</text>
         <text v-show="enter" x="100" y="530">to Play</text>
-        <g
-          class="johno"
-          x="300"
-          y="610"
-          transform-origin="50 50"
-          :transform="johno.transform"
-        >
-          <JohnoSVG width="100" height="100" />
+
+        <g class="johno" :transform="johno.transform" transform-origin="50 50">
+          <JohnoSVG width="100" height="100"/>
         </g>
+
       </g>
     </svg>
   </div>
@@ -44,7 +40,7 @@ export default {
         x: 0,
         y: 610,
         speed: 5,
-        transform: "scale(1,1)",
+        transform: "translate(900,610) scale(1,1)",
       },
       houses: {
         transform: "translate(0,0)",
@@ -57,7 +53,7 @@ export default {
   },
   methods: {
     calcTransform: function () {
-      this.johno.transform = `scale(${this.johno.direction},1)`;
+      this.johno.transform = `translate(900,610) scale(${this.johno.direction},1)`;
       this.houses.transform = `translate(${-this.johno.x},0)`;
     },
 
