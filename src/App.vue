@@ -3,13 +3,13 @@
 </template>
 
 <script>
-import Menu from "./components/WalkingMenu.vue";
+import Menu from './components/WalkingMenu.vue'
+
 export default {
-  name: "App",
   components: {
     MenuVue: Menu,
   },
-};
+}
 </script>
 
 <style>

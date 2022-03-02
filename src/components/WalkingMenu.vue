@@ -9,12 +9,13 @@
   >
     <svg width="1800" height="800">
       <g>
-        <g class="house" :transform="houses.transform">
+        <g class="house" :transform="housesTransform">
           <House />
         </g>
         <text v-show="enter" x="100" y="500">Press Enter</text>
         <text v-show="enter" x="100" y="530">to Play</text>
 
+        <g class="johno" :transform="johnoTransform" transform-origin="50 50">
         <g class="johno" :transform="johno.transform" transform-origin="50 50">
           <JohnoSVG width="100" height="100"/>
         </g>
@@ -40,61 +41,71 @@ export default {
         x: 0,
         y: 610,
         speed: 5,
-        transform: "translate(900,610) scale(1,1)",
+        // transform: 'translate(900,610) scale(1,1)',
       },
       houses: {
-        transform: "translate(0,0)",
+        // transform: 'translate(0,0)',
       },
       enter: false,
-    };
+    }
   },
-  mounted() {
-    this.move();
-  },
-  methods: {
-    calcTransform: function () {
-      this.johno.transform = `translate(900,610) scale(${this.johno.direction},1)`;
-      this.houses.transform = `translate(${-this.johno.x},0)`;
-    },
 
+  computed: {
+    johnoTransform() {
+      return `translate(900,610) scale(${this.johno?.direction},1)`
+    },
+    housesTransform() {
+      return `translate(${-this.johno?.x},0)`
+    },
+  },
+
+  mounted() {
+    this.move()
+  },
+
+  methods: {
+    // calcTransform: function () {
+    //   this.johno.transform = `translate(900,610) scale(${this.johno.direction},1)`
+    //   this.houses.transform = `translate(${-this.johno.x},0)`
+    // },
     checkEnterPrompt: function () {
-      this.enter = 300 < this.johno.x && this.johno.x < 400;
+      this.enter = 300 < this.johno.x && this.johno.x < 400
     },
     play: function () {
       if (this.enter) {
-        this.johno.y = 400;
+        this.johno.y = 400
       }
     },
     move: function () {
       if (this.moving) {
-        this.johno.x += this.johno.direction * this.johno.speed;
+        this.johno.x += this.johno.direction * this.johno.speed
         this.johno.x =
-          this.johno.x < 0 ? 0 : this.johno.x > 500 ? 500 : this.johno.x;
+          this.johno.x < 0 ? 0 : this.johno.x > 500 ? 500 : this.johno.x
       }
-      this.checkEnterPrompt();
-      this.calcTransform();
-      setTimeout(this.move, 20);
+      this.checkEnterPrompt()
+      // this.calcTransform()
+      setTimeout(this.move, 20)
     },
     moveLeft: function () {
-      this.johno.direction = -1;
-      this.moving = true;
+      this.johno.direction = -1
+      this.moving = true
     },
     stopLeft: function () {
       if (this.johno.direction === -1) {
-        this.moving = false;
+        this.moving = false
       }
     },
     moveRight: function () {
-      this.johno.direction = 1;
-      this.moving = true;
+      this.johno.direction = 1
+      this.moving = true
     },
     stopRight: function () {
       if (this.johno.direction === 1) {
-        this.moving = false;
+        this.moving = false
       }
     },
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
