@@ -8,26 +8,24 @@
     @keydown.enter="play"
   >
     <svg width="1800" height="800">
-      <g>
-        <g class="house" :transform="housesTransform">
-          <House />
-        </g>
-        <text v-show="enter" x="100" y="500">Press Enter</text>
-        <text v-show="enter" x="100" y="530">to Play</text>
+      <g class="house" :transform="housesTransform">
+        <House />
+      </g>
+      <text v-show="enter" x="100" y="500">Press Enter</text>
+      <text v-show="enter" x="100" y="530">to Play</text>
 
-        <g class="johno" :transform="johnoTransform" transform-origin="50 50">
+      <g class="johno" :transform="johnoTransform" transform-origin="50 50">
         <g class="johno" :transform="johno.transform" transform-origin="50 50">
-          <JohnoSVG width="100" height="100"/>
+          <JohnoSVG width="100" height="100" />
         </g>
-
       </g>
     </svg>
   </div>
 </template>
 
 <script>
-import House from "./WordsearchHouse.vue";
-import Johno from "./JohnoSVG.vue";
+import House from './WordsearchHouse.vue'
+import Johno from './JohnoSVG.vue'
 export default {
   components: {
     House: House,
@@ -35,6 +33,10 @@ export default {
   },
   data: function () {
     return {
+      screen: {
+        width: 1800,
+        height: 800,
+      },
       johno: {
         direction: 1,
         moving: true,
@@ -44,6 +46,7 @@ export default {
         // transform: 'translate(900,610) scale(1,1)',
       },
       houses: {
+        originX: 600,
         // transform: 'translate(0,0)',
       },
       enter: false,
@@ -55,7 +58,7 @@ export default {
       return `translate(900,610) scale(${this.johno?.direction},1)`
     },
     housesTransform() {
-      return `translate(${-this.johno?.x},0)`
+      return `translate(${this.houses?.originX - this.johno?.x},0)`
     },
   },
 
@@ -69,7 +72,11 @@ export default {
     //   this.houses.transform = `translate(${-this.johno.x},0)`
     // },
     checkEnterPrompt: function () {
-      this.enter = 300 < this.johno.x && this.johno.x < 400
+      this.enter =
+        100 < this.houses.originX - this.johno.x &&
+        this.houses.originX - this.johno.x < 200
+
+      // FIX alongside fixing game array
     },
     play: function () {
       if (this.enter) {
@@ -79,8 +86,8 @@ export default {
     move: function () {
       if (this.moving) {
         this.johno.x += this.johno.direction * this.johno.speed
-        this.johno.x =
-          this.johno.x < 0 ? 0 : this.johno.x > 500 ? 500 : this.johno.x
+        // this.johno.x =
+        //   this.johno.x < 0 ? 0 : this.johno.x > 500 ? 500 : this.johno.x
       }
       this.checkEnterPrompt()
       // this.calcTransform()
