@@ -1,3 +1,9 @@
 {
-  "recommendations": ["johnsoncodehk.volar"]
+  "recommendations": [
+    "octref.vetur",
+    "bradlc.vscode-tailwindcss",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "carlosjs23.vscode-yarn-script"
+  ]
 }
