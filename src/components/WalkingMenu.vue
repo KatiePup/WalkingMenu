@@ -8,8 +8,13 @@
     @keydown.enter="play"
   >
     <svg width="1800" height="800">
-      <g class="house" :transform="housesTransform">
-        <House />
+      <g
+        v-for="house in houses.houseArr"
+        :key="house.key"
+        class="house"
+        :transform="housesTransform"
+      >
+        <component :is="house.component" />
       </g>
       <text v-show="enter" x="100" y="500">Press Enter</text>
       <text v-show="enter" x="100" y="530">to Play</text>
@@ -26,27 +31,47 @@
 <script>
 import House from './WordsearchHouse.vue'
 import Johno from './JohnoSVG.vue'
+import Road from './RoadSVG.vue'
+import { shallowRef } from 'vue'
+
 export default {
   components: {
-    House: House,
     JohnoSVG: Johno,
   },
   data: function () {
+    const inputArr = [{ component: shallowRef(House) }]
+
+    const roadObj = { component: shallowRef(Road) }
+    let houseArr = []
+
+    switch (inputArr.length) {
+      case 1:
+        houseArr = [roadObj, ...inputArr, roadObj]
+        break
+      case 2:
+        houseArr = [...inputArr, roadObj]
+        break
+      default:
+        houseArr = inputArr
+        break
+    }
+
     return {
       screen: {
-        width: 1800,
+        width: houseArr.length*600,
         height: 800,
       },
       johno: {
         direction: 1,
-        moving: true,
-        x: 0,
+        moving: false,
+        x: 900,
         y: 610,
         speed: 5,
         // transform: 'translate(900,610) scale(1,1)',
       },
       houses: {
         originX: 600,
+        houseArr: houseArr,
         // transform: 'translate(0,0)',
       },
       enter: false,
@@ -55,7 +80,7 @@ export default {
 
   computed: {
     johnoTransform() {
-      return `translate(900,610) scale(${this.johno?.direction},1)`
+      return `translate(${this.johno?.x < 900 ? this.johno?.x : ( this.screen.width - this.johno?.x < 900 ) ? this.screen.width - this.johno?.x : 900 },610) scale(${this.johno?.direction},1)`
     },
     housesTransform() {
       return `translate(${this.houses?.originX - this.johno?.x},0)`
@@ -86,8 +111,8 @@ export default {
     move: function () {
       if (this.moving) {
         this.johno.x += this.johno.direction * this.johno.speed
-        // this.johno.x =
-        //   this.johno.x < 0 ? 0 : this.johno.x > 500 ? 500 : this.johno.x
+        this.johno.x =
+          this.johno.x < 0 ? 0 : this.johno.x > this.screen.width ? this.screen.width : this.johno.x
       }
       this.checkEnterPrompt()
       // this.calcTransform()
