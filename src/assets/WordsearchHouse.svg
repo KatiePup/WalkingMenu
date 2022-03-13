@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800">
+  <path fill="#7087b4" stroke="#000" stroke-width="4" d="m-12 666 56-9 89 9 77-14 94 8 20-61 133-1 21 69 53-10 71 8v66l-105 3-224-11-284 12-1-69z" opacity="NaN"/>
+  <path fill="#7f3f00" stroke="#000" stroke-width="4.4" d="m131 112 11-76 424 8-19 70"/>
+  <g fill-rule="evenodd" stroke="#000">
+    <path fill="#ffa" stroke-width="5" d="M77 260c-5 112-9 225-5 337 13 4 437 0 465 3-3-122 10-232 6-346l-249-81-217 87z"/>
+    <path fill="#7f3f00" stroke-width="4.4" d="M116 308v133l165 2s3-139-2-137c-4 2-165 6-163 2z"/>
+    <path fill="#aad4ff" stroke-width="4.4" d="m130 330 3 91 130 2v-95l-133 2z"/>
+    <path fill="#7f3f00" stroke-width="5" d="M327 599c-4-54 5-153 6-231 32-2 125-6 130 3 3 75-2 153-6 228H327z"/>
+    <path fill="#4f567d" stroke-width="5" d="M94 161c0 27-3 49 7 80l56-3v-80c-8-6-38 2-58 3h-5z"/>
+    <path fill="#ffc81e" stroke-width="5" d="M424 453c-2 8-2 16 0 23 5 0 18 1 16-1 1-5 2-12-1-19l-15-3z"/>
+    <path fill="red" stroke-width="5" d="M42 264c85-42 216-101 256-105 91 33 185 52 273 94 10 10 0 30-6 36-90-31-176-61-267-95-85 36-168 76-253 112-12-6-8-39-3-42z"/>
+  </g>
+  <text xml:space="preserve" x="156.7" y="101.8" stroke="#000" stroke-width="0" font-family="'Comfortaa'" font-size="64" style="cursor:move">
+        Wordsearch
+      </text>
+  <path fill="none" stroke="#000" stroke-width="4" d="m186 114 5 83m317-84 29 124M129 113l188-2M143 36l-13 78m438-72-426-6m405 79 20-72m-252 68 232 2"/>
+  <path fill="none" stroke="#000" d="m1 739-4-78" opacity="NaN"/>
+</svg>

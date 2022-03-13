@@ -1,5 +1,4 @@
-<template>
-  <svg width="600" height="800" xmlns="http://www.w3.org/2000/svg">
+<svg width="600" height="800" xmlns="http://www.w3.org/2000/svg">
     <g>
       <title>Layer 1</title>
       <path
@@ -188,4 +187,3 @@
       />
     </g>
   </svg>
-</template>

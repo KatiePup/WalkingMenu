@@ -15,22 +15,22 @@
       <text v-show="enter" x="100" y="530">to Play</text>
 
       <g class="johno" :transform="johnoTransform" transform-origin="50 50">
-        <g class="johno" :transform="johno.transform" transform-origin="50 50">
-          <JohnoSVG width="100" height="100" />
-        </g>
+        <Johno width="100" height="100" />
       </g>
     </svg>
   </div>
 </template>
 
 <script>
-import House from './WordsearchHouse.vue'
-import Johno from './JohnoSVG.vue'
+import House from '../assets/WordsearchHouse.svg?component'
+import Johno from '../assets/JohnoSVG.svg?component'
+
 export default {
   components: {
-    House: House,
-    JohnoSVG: Johno,
+    House,
+    Johno,
   },
+
   data: function () {
     return {
       screen: {
