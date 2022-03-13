@@ -12,9 +12,10 @@
         <g
           v-for="(house, index) in houses.houseArr"
           :key="house.key"
-          :transform="`translate(${houses.offset * index})`"
+          :transform="`translate(${defaultWidth},0)`"
           class="house"
         >
+          <!-- :transform="`translate(${houses.houseArr[index - 1]?.width ?? 0},0)`" -->
           <component :is="house.component" />
         </g>
       </g>
@@ -22,7 +23,7 @@
       <g class="johno" :transform="johnoTransform" transform-origin="50 50">
         <Johno width="100" height="100" />
       </g>
-    
+
       <g>
         <text v-show="enter" x="100" y="500">Press Enter</text>
         <text v-show="enter" x="100" y="530">to Play</text>
@@ -44,9 +45,24 @@ export default {
   },
 
   data: function () {
-    const inputArr = [{ component: shallowRef(House) }]
+    const defaultWidth = 600;
 
-    const roadObj = { component: shallowRef(Road) }
+    // Setup some objects to go on the path...
+    const roadObj = {
+      type: 'path',
+      width: defaultWidth,
+      component: shallowRef(Road),
+    }
+
+    // Build our path...
+    const inputArr = [
+      {
+        type: 'house',
+        width: defaultWidth,
+        component: shallowRef(House),
+      },
+    ]
+
     let houseArr = []
 
     switch (inputArr.length) {
@@ -62,8 +78,9 @@ export default {
     }
 
     return {
+      defaultWidth,
       screen: {
-        width: houseArr.length*600,
+        width: houseArr.length * defaultWidth,
         height: 800,
       },
       johno: {
@@ -76,7 +93,6 @@ export default {
       },
       houses: {
         originX: 600,
-        offset: 600,
         houseArr: houseArr,
         // transform: 'translate(0,0)',
       },
@@ -86,7 +102,13 @@ export default {
 
   computed: {
     johnoTransform() {
-      return `translate(${this.johno?.x < 900 ? this.johno?.x : ( this.screen.width - this.johno?.x < 900 ) ? this.screen.width - this.johno?.x : 900 },610) scale(${this.johno?.direction},1)`
+      return `translate(${
+        this.johno?.x < 900
+          ? this.johno?.x
+          : this.screen.width - this.johno?.x < 900
+          ? this.screen.width - this.johno?.x
+          : 900
+      },610) scale(${this.johno?.direction},1)`
     },
     housesTransform() {
       return `translate(${this.houses?.originX - this.johno?.x},0)`
@@ -117,8 +139,14 @@ export default {
     move: function () {
       if (this.moving) {
         this.johno.x += this.johno.direction * this.johno.speed
+        
+        // TODO: Consider writing (or finding) clamp function.
         this.johno.x =
-          this.johno.x < 0 ? 0 : this.johno.x > this.screen.width ? this.screen.width : this.johno.x
+          this.johno.x < 0
+            ? 0
+            : this.johno.x > this.screen.width
+            ? this.screen.width
+            : this.johno.x
       }
       this.checkEnterPrompt()
       // this.calcTransform()
