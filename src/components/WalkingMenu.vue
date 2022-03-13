@@ -8,19 +8,24 @@
     @keydown.enter="play"
   >
     <svg width="1800" height="800">
-      <g
-        v-for="house in houses.houseArr"
-        :key="house.key"
-        class="house"
-        :transform="housesTransform"
-      >
-        <component :is="house.component" />
+      <g class="track" :transform="housesTransform">
+        <g
+          v-for="(house, index) in houses.houseArr"
+          :key="house.key"
+          :transform="`translate(${houses.offset * index})`"
+          class="house"
+        >
+          <component :is="house.component" />
+        </g>
       </g>
-      <text v-show="enter" x="100" y="500">Press Enter</text>
-      <text v-show="enter" x="100" y="530">to Play</text>
 
       <g class="johno" :transform="johnoTransform" transform-origin="50 50">
         <Johno width="100" height="100" />
+      </g>
+    
+      <g>
+        <text v-show="enter" x="100" y="500">Press Enter</text>
+        <text v-show="enter" x="100" y="530">to Play</text>
       </g>
     </svg>
   </div>
@@ -71,6 +76,7 @@ export default {
       },
       houses: {
         originX: 600,
+        offset: 600,
         houseArr: houseArr,
         // transform: 'translate(0,0)',
       },
